@@ -1,92 +1,104 @@
-{% extends "base.html" %}
-
-{% block title %}Survey Form{% endblock %}
-
-{% block content %}
-{% if message %}
-<div class="success-message" style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
-    {{ message }}
-</div>
-{% endif %}
-<form action="/" method="POST" class="pure-form pure-form-stacked">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+</head>
+<body class="survey-page">
+    <div id="survey-content">
+        <div id="content-box">
+            <h1>Leisure and Travel Survey</h1>
+            <hr>
+            
+            {% if message %}
+            <div class="success-message" style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+                {{ message }}
+            </div>
+            {% endif %}
+            <form action="/" method="POST" class="pure-form pure-form-stacked">
                 <fieldset>
                     <!-- <legend>Leisure and Travel Survey</legend> -->
                     <br>
             
-            <label for="name">1. Name</label>
-            <input type="text" id="name" name="name" required minlength="3" maxlength="50" placeholder="Enter your name">
-            <span class="pure-form-message">This is a required field</span>
-            <br>
-            
-            <label for="age">2. Age</label>
-            <input type="number" id="age" name="age" min="3" max="100" required placeholder="Enter your age">
-            <span class="pure-form-message">This is a required field.</span>
-            <br>
+                    <label for="name">1. Name</label>
+                    <input type="text" id="name" name="name" required minlength="3" maxlength="50" placeholder="Enter your name">
+                    <span class="pure-form-message">This is a required field</span>
+                    <br>
+                    
+                    <label for="age">2. Age</label>
+                    <input type="number" id="age" name="age" min="3" max="100" required placeholder="Enter your age">
+                    <span class="pure-form-message">This is a required field.</span>
+                    <br>
 
-            <label>3. How frequently do you travel?</label>
-            <label for="monthly" class="pure-radio">
-                <input type="radio" id="monthly" name="frequency" value="monthly">
-                Monthly
-            </label>
-            <label for="quarterly" class="pure-radio">
-                <input type="radio" id="quarterly" name="frequency" value="quarterly">
-                Quarterly
-            </label>
-            <label for="biannually" class="pure-radio">
-                <input type="radio" id="biannually" name="frequency" value="biannually">
-                Bi-annually
-            </label>
-            <label for="yearly" class="pure-radio">
-                <input type="radio" id="yearly" name="frequency" value="yearly">
-                Yearly
-            </label>
-            <br>
+                    <label>3. How frequently do you travel?</label>
+                    <label for="monthly" class="pure-radio">
+                        <input type="radio" id="monthly" name="frequency" value="monthly">
+                        Monthly
+                    </label>
+                    <label for="quarterly" class="pure-radio">
+                        <input type="radio" id="quarterly" name="frequency" value="quarterly">
+                        Quarterly
+                    </label>
+                    <label for="biannually" class="pure-radio">
+                        <input type="radio" id="biannually" name="frequency" value="biannually">
+                        Bi-annually
+                    </label>
+                    <label for="yearly" class="pure-radio">
+                        <input type="radio" id="yearly" name="frequency" value="yearly">
+                        Yearly
+                    </label>
+                    <br>
 
-            <label for="travel_type">4. What is your favorite type of travel?</label>
-            <select id="travel_type" name="travel_type">
-                <option value="">--Select--</option>
-                <option value="beach">Beach Getaway</option>
-                <option value="mountain">Nature and Hiking</option>
-                <option value="city">City Exploration</option>
-                <option value="culture">Cultural and Historical</option>
-                <option value="adventure">Adventure and Outdoor</option>
-            </select>
-            <br>
-            
-            <label>5. Who do you like to travel with?</label>
-            <label for="solo" class="pure-radio">
-                <input type="radio" id="solo" name="travel_companions" value="solo">
-                Solo
-            </label>
-            <label for="friends" class="pure-radio">
-                <input type="radio" id="friends" name="travel_companions" value="friends">
-                Friends
-            </label>
-            <label for="family" class="pure-radio">
-                <input type="radio" id="family" name="travel_companions" value="family">
-                Family
-            </label>
-            <br>
-
-            <label for="destination" class="pure-checkbox">
-                <input type="checkbox" id="destination" name="destination" value="destination">
-                Yes, I do have a dream destination
-            </label>
-            <br>
-
-            <div id="dream_destination_section">
-                <label for="dream_destination">6. Tell us about your dream destination</label>
-                <textarea id="dream_destination" name="dream_destination" rows="3" cols="50" placeholder="Enter your dream destination"></textarea>
-            </div>
-            <br>
-            
-            <div class="pure-controls">
-                <button type="submit" class="pure-button pure-button-primary">Submit</button>
-            </div>
+                    <label>4. What is your favorite type of travel?</label>
+                    <label for="beach" class="pure-radio">
+                        <input type="radio" id="beach" name="travel_type" value="beach">
+                        Beach Getaway
+                    </label>
+                    <label for="mountain" class="pure-radio">
+                        <input type="radio" id="mountain" name="travel_type" value="mountain">
+                        Nature and Hiking
+                    </label>
+                    <label for="city" class="pure-radio">
+                        <input type="radio" id="city" name="travel_type" value="city">
+                        City Exploration
+                    </label>
+                    <label for="culture" class="pure-radio">
+                        <input type="radio" id="culture" name="travel_type" value="culture">
+                        Cultural and Historical
+                    </label>
+                    <label for="adventure" class="pure-radio">
+                        <input type="radio" id="adventure" name="travel_type" value="adventure">
+                        Adventure and Outdoor
+                    </label>
+                    <br>
+                    
+                    <label>5. Who do you like to travel with?</label>
+                    <label for="solo" class="pure-radio">
+                        <input type="radio" id="solo" name="travel_companions" value="solo">
+                        Solo
+                    </label>
+                    <label for="friends" class="pure-radio">
+                        <input type="radio" id="friends" name="travel_companions" value="friends">
+                        Friends
+                    </label>
+                    <label for="family" class="pure-radio">
+                        <input type="radio" id="family" name="travel_companions" value="family">
+                        Family
+                    </label>
+                    <br>
+                    
+                    <div class="pure-controls">
+                        <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                        <button type="button" id="clear-form" class="pure-button">Clear Form</button>
+                    </div>
                 </fieldset>
             </form>
-{% endblock %}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-{% endblock %}
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
