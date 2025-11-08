@@ -51,15 +51,43 @@ docker run -p 5001:5001 -e DATABASE_URL="postgresql://user:password@host:5432/db
    echo YOUR_GITHUB_TOKEN | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
    ```
 
-2. **Build with GHCR tag**
+2. **Build and push for local use (ARM64 on Apple Silicon, AMD64 on Intel)**
    ```bash
    docker build -t ghcr.io/prajwal-u2/flask-app-docker:latest .
-   ```
-
-3. **Push to GHCR**
-   ```bash
    docker push ghcr.io/prajwal-u2/flask-app-docker:latest
    ```
+   
+   **Note:** This builds for your local machine's architecture (ARM64 on Apple Silicon, AMD64 on Intel).
+
+---
+
+## Deploying to Render
+
+**Important:** Render requires Docker images built for `linux/amd64` architecture. 
+
+### Workflow: Separate builds for local vs Render
+
+**For local development (ARM64 on Apple Silicon):**
+```bash
+docker build -t survey-app .  # Builds ARM64 (fast, native)
+docker run -p 5001:5001 survey-app
+```
+
+**For Render deployment (AMD64):**
+```bash
+# Build and push AMD64 image directly to GHCR (for Render)
+docker buildx build --platform linux/amd64 -t ghcr.io/prajwal-u2/flask-app-docker:latest --push .
+```
+
+**Note:** If you get a buildx error, create a builder first:
+```bash
+docker buildx create --use --name multiarch-builder
+```
+
+This way:
+- Local builds are fast (native ARM64 on Apple Silicon)
+- Render gets the correct AMD64 image
+- No need to run AMD64 images locally
 
 ---
 
